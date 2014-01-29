@@ -6,17 +6,17 @@ import java.util.Queue;
 public class Tree<T extends Comparable<T>> {
 	private TreeNode<T> root;
 
-	public void bfs() {
-		bfs(root);
+	public void bfs(final TreeNodeVisitFunction<T> visit) {
+		bfs(root, visit);
 	}
 
-	private void bfs(final TreeNode<T> root) {
+	private void bfs(final TreeNode<T> root, final TreeNodeVisitFunction<T> visit) {
 		if (root == null) {
 			return;
 		}
-		bfs(root.left());
-		bfs(root.right());
-		System.out.println(root.data());
+		bfs(root.left(), visit);
+		bfs(root.right(), visit);
+		visit.execute(root.data());
 	}
 
 	public void inLevelOrder(final TreeNodeVisitFunction<T> visit) {
@@ -28,13 +28,17 @@ public class Tree<T extends Comparable<T>> {
 			int count = queue.size();
 			for (; count > 0; count--) {
 				final TreeNode<T> head = queue.poll();
-				if (head.left() != null)
-					queue.offer(head.left());
-				if (head.right() != null)
-					queue.offer(head.right());
+				addIfNotNull(queue, head.left());
+				addIfNotNull(queue, head.right());
 			}
 		}
 	}
+
+	private void addIfNotNull(final Queue<TreeNode<T>> queue,
+			final TreeNode<T> node) {
+		if (node != null)
+			queue.offer(node);
+	}	
 
 	private void inLevelOrder(final Queue<TreeNode<T>> queue, final TreeNodeVisitFunction<T> visit) {
 		for (final TreeNode<T> node : queue) {
@@ -67,6 +71,4 @@ public class Tree<T extends Comparable<T>> {
 	public TreeNode<T> root() {
 		return root;
 	}
-
-
 }
