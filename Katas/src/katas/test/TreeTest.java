@@ -35,7 +35,7 @@ public class TreeTest {
 		final Queue<Integer> inOrderList = new LinkedList<>();
 		final TreeNodeVisitFunction<Integer> addInList = new TreeNodeVisitFunction<Integer>(){
 			@Override
-			public void execute(final Integer input) {
+			public void to(final Integer input) {
 				inOrderList.add(input);
 			}
 

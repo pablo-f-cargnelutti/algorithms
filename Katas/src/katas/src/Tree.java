@@ -16,20 +16,20 @@ public class Tree<T extends Comparable<T>> {
 		}
 		bfs(root.left(), visit);
 		bfs(root.right(), visit);
-		visit.execute(root.data());
+		visit.to(root.data());
 	}
 
 	public void inLevelOrder(final TreeNodeVisitFunction<T> visit) {
-		final Queue<TreeNode<T>> queue = new LinkedList<>();
-		queue.offer(root);
+		final Queue<TreeNode<T>> level = new LinkedList<>();
+		level.offer(root);
 
-		while (!queue.isEmpty()) {
-			inLevelOrder(queue, visit);
-			int count = queue.size();
+		while (!level.isEmpty()) {
+			applyTo(level, visit);
+			int count = level.size();
 			for (; count > 0; count--) {
-				final TreeNode<T> head = queue.poll();
-				addIfNotNull(queue, head.left());
-				addIfNotNull(queue, head.right());
+				final TreeNode<T> head = level.poll();
+				addIfNotNull(level, head.left());
+				addIfNotNull(level, head.right());
 			}
 		}
 	}
@@ -40,9 +40,9 @@ public class Tree<T extends Comparable<T>> {
 			queue.offer(node);
 	}	
 
-	private void inLevelOrder(final Queue<TreeNode<T>> queue, final TreeNodeVisitFunction<T> visit) {
+	private void applyTo(final Queue<TreeNode<T>> queue, final TreeNodeVisitFunction<T> visit) {
 		for (final TreeNode<T> node : queue) {
-			visit.execute(node.data());
+			visit.to(node.data());
 		}
 		visit.endOfLevel();
 	}
