@@ -78,8 +78,6 @@ public class FileReaderTest {
 		final FileReader fileReader = FileReader.forPath(".NOT_EXISTING_FILE.txt");
 		
 		fileReader.readBySeparator(FileReader.Separator.LINE_BREAK);
-		
-		
 	}
 
 }

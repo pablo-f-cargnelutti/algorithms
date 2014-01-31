@@ -3,7 +3,7 @@ package katas.src;
 public class TreeNode<T extends Comparable<T>> {
 	private TreeNode<T> left;
 	private TreeNode<T> right;
-	private T data;
+	private final T data;
 
 	public TreeNode(final T data) {
 		this.data =  data;
@@ -11,10 +11,6 @@ public class TreeNode<T extends Comparable<T>> {
 
 	public T data() {
 		return data;
-	}
-
-	public void setData(final T data) {
-		this.data = data;
 	}
 
 	public TreeNode<T> right() {
