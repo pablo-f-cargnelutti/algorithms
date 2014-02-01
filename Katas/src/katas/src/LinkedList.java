@@ -1,6 +1,5 @@
 package katas.src;
 
-import katas.test.ListNode;
 
 public class LinkedList<T> {
 
@@ -76,6 +75,20 @@ public class LinkedList<T> {
 			action.apply(aux);
 			aux = aux.next();
 		}
+	}
+
+	public void reverse() {
+		ListNode<T> current = this.head;
+		ListNode<T> next = null;
+		ListNode<T> previous = null;
+		
+		while(current != null) {
+			next = current.next();
+			current.setNext(previous);
+			previous = current;
+			current = next;
+		}
+		this.head = previous;
 	}
 	
 

@@ -41,4 +41,17 @@ public class TreeNode<T extends Comparable<T>> {
 	public String toString() {
 		return data.toString();
 	}
+
+	public boolean isBSNode() {
+		
+		return this.isGreatherThan(left) && this.isLessThan(right);
+	}
+
+	private boolean isLessThan(final TreeNode<T> node) {
+		return node != null ? (this.isLessThan(node.data)) : true;
+	}
+
+	private boolean isGreatherThan(final TreeNode<T> node) {
+		return node != null ? (this.isGreatherThan(node.data)) : true;
+	}
 }

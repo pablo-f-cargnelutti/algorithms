@@ -1,4 +1,4 @@
-package katas.test;
+package katas.src;
 
 
 public class ListNode<T> {

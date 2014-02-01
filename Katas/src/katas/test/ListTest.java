@@ -3,6 +3,7 @@ package katas.test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import katas.src.LinkedList;
+import katas.src.ListNode;
 import katas.src.NestedListNode;
 
 import org.junit.Test;
@@ -109,5 +110,23 @@ public class ListTest {
 		
 		assertArrayEquals(new Integer[]{500, 400, 980, 100, 10, 50,40,98}, list.asArray());			
 	}
-
+		
+	@Test
+	public void testReverseList(){
+		final LinkedList<Integer> list = new LinkedList<>();		
+		list.addFirst(Integer.valueOf(10));
+		list.addFirst(Integer.valueOf(100));
+		list.addFirst(Integer.valueOf(1546));
+		list.addFirst(Integer.valueOf(12340));
+		list.addFirst(Integer.valueOf(610));
+		
+		list.reverse();
+		
+		assertArrayEquals(new Integer[]{10, 100, 1546, 12340, 610}, list.asArray());
+		
+		// Back to original state
+		list.reverse();
+		
+		assertArrayEquals(new Integer[]{610, 12340, 1546, 100, 10}, list.asArray());
+	}
 }

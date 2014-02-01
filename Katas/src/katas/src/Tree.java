@@ -71,4 +71,15 @@ public class Tree<T extends Comparable<T>> {
 	public TreeNode<T> root() {
 		return root;
 	}
+
+	public boolean isBST() {
+		return isBST(root);
+	}
+
+	private boolean isBST(final TreeNode<T> root) {
+		if(root !=null) 
+			return root.isBSNode() && isBST(root.left()) && isBST(root.right());		
+		else 
+			return true;
+	}
 }

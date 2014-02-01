@@ -1,6 +1,5 @@
 package katas.src;
 
-import katas.test.ListNode;
 
 public class NestedListNode<T> extends ListNode<T> {
 
