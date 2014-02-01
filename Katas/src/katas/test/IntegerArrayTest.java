@@ -1,7 +1,8 @@
 package katas.test;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import katas.src.IntegerArray;
 import katas.src.Pair;
 
@@ -56,13 +57,13 @@ public class IntegerArrayTest {
 	@Test
 	public void testMergeTwoSortedArrays()
 	{
-		int[] baseArray = new int[10];
+		final int[] baseArray = new int[10];
 		baseArray[0] = 1;
 		baseArray[1] = 7;
 		baseArray[2] = 30;
 		baseArray[3] = 50;
 		
-		int[] arrayToMerge = new int[] { 2,3};
+		final int[] arrayToMerge = new int[] { 2,3};
 		
 		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 2);		
 		
@@ -72,32 +73,56 @@ public class IntegerArrayTest {
 	@Test
 	public void testMergeTwoSortedArraysToMergeGreatherThanBaseArray()
 	{
-		int[] baseArray = new int[10];
+		final int[] baseArray = new int[11];
 		baseArray[0] = 1;
 		baseArray[1] = 7;
 		baseArray[2] = 30;
 		baseArray[3] = 50;
 		
-		int[] arrayToMerge = new int[] { 2, 3, 100, 690, 800};
+		final int[] arrayToMerge = new int[] { 2, 3, 100, 690, 800, 900, 1000};
 		
-		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 5);		
+		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 7);		
 		
-		assertArrayEquals(new int[]{1,2,3,7,30,50,100,690,800,0}, baseArray);
+		assertArrayEquals(new int[]{1,2,3,7,30,50,100,690,800,900, 1000}, baseArray);
 	}
 	
 	@Test
 	public void testMergeTwoSortedArraysWhithrRepetitions()
 	{
-		int[] baseArray = new int[10];
+		final int[] baseArray = new int[10];
 		baseArray[0] = 1;
 		baseArray[1] = 7;
 		baseArray[2] = 30;
 		baseArray[3] = 50;
 		
-		int[] arrayToMerge = new int[] { 7,30};
+		final int[] arrayToMerge = new int[] { 7,30};
 		
 		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 2);		
 		
 		assertArrayEquals(new int[]{1,7,7,30,30,50,0,0,0,0}, baseArray);
+	}
+	
+	@Test
+	public void testMaxAscendingSequence() {
+		final Integer[] initialValues = { 1, 54, 1, 5, 41,42, 5, 7, 5, 16, 7, 9 };
+		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
+		assertEquals(2, array.maxAscendingSequence());
+	}
+	
+	@Test
+	public void testMaxAscendingSequenceAtTheEnd() {
+		final Integer[] initialValues = { 1, 54, 1, 5, 41,42, 5, 7, 5, 16, 7, 8, 9 };
+		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
+		assertEquals(3, array.maxAscendingSequence());
+	}
+	
+	@Test
+	public void testMaxAscendingSequenceAtTheBeggining() {
+		final Integer[] initialValues = { 1, 2,3,4, 41,42, 5, 7, 5, 16, 7, 8, 9 };
+		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
+		assertEquals(4, array.maxAscendingSequence());
 	}
 }

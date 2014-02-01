@@ -20,12 +20,7 @@ public class ListTest {
 	
 	@Test
 	public void testAddSeveralElementsToList() {
-		final LinkedList<Integer> list = new LinkedList<>();		
-		list.addFirst(Integer.valueOf(10));
-		list.addFirst(Integer.valueOf(100));
-		list.addFirst(Integer.valueOf(1546));
-		list.addFirst(Integer.valueOf(12340));
-		list.addFirst(Integer.valueOf(610));
+		final LinkedList<Integer> list = createSampleList();
 		assertEquals(5, list.size());
 		assertEquals(Integer.valueOf(610), list.getFirst());
 	}
@@ -113,12 +108,7 @@ public class ListTest {
 		
 	@Test
 	public void testReverseList(){
-		final LinkedList<Integer> list = new LinkedList<>();		
-		list.addFirst(Integer.valueOf(10));
-		list.addFirst(Integer.valueOf(100));
-		list.addFirst(Integer.valueOf(1546));
-		list.addFirst(Integer.valueOf(12340));
-		list.addFirst(Integer.valueOf(610));
+		final LinkedList<Integer> list = createSampleList();
 		
 		list.reverse();
 		
@@ -128,5 +118,28 @@ public class ListTest {
 		list.reverse();
 		
 		assertArrayEquals(new Integer[]{610, 12340, 1546, 100, 10}, list.asArray());
+	}
+	
+	@Test
+	public void testPrintReverseList(){
+		final LinkedList<Integer> list = createSampleList();
+		
+		list.printReverse();		
+	}
+
+	@Test
+	public void testIsACyclicList() {
+		
+	}
+	
+	
+	private LinkedList<Integer> createSampleList() {
+		final LinkedList<Integer> list = new LinkedList<>();		
+		list.addFirst(Integer.valueOf(10));
+		list.addFirst(Integer.valueOf(100));
+		list.addFirst(Integer.valueOf(1546));
+		list.addFirst(Integer.valueOf(12340));
+		list.addFirst(Integer.valueOf(610));
+		return list;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Stack<T extends Comparable<T>> {
 
-	private Deque<T> elements;
+	private final Deque<T> elements;
 	private T min;
 	private T lastMin;
 
@@ -28,7 +28,7 @@ public class Stack<T extends Comparable<T>> {
 		if(this.isEmpty())
 			throw new IllegalStateException();
 		
-		T pop = this.elements.pop();
+		final T pop = this.elements.pop();
 		
 		if(pop.equals(min))
 			min = lastMin;	
@@ -38,8 +38,7 @@ public class Stack<T extends Comparable<T>> {
 	
 	public T min() {		
 		if(this.isEmpty())
-			throw new IllegalStateException();
-		
+			throw new IllegalStateException();		
 		return min;
 	}
 	

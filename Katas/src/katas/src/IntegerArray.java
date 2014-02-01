@@ -8,17 +8,17 @@ import java.util.Set;
 
 public class IntegerArray {
 
-	public static IntegerArray integerArrayFrom(Integer[] initialValues) {
+	public static IntegerArray integerArrayFrom(final Integer[] initialValues) {
 		return new IntegerArray(initialValues);
 	}
 
 	final private List<Integer> elements;
 
-	private IntegerArray(Integer[] initialValues) {
+	private IntegerArray(final Integer[] initialValues) {
 		this.elements = Arrays.asList(initialValues);
 	}
 
-	public boolean hasTwoNumbersThatSum(int aNumber) {
+	public boolean hasTwoNumbersThatSum(final int aNumber) {
 		final Set<Integer> uniqueElements = new HashSet<>(elements);
 
 		for (final Integer number : elements) {
@@ -44,6 +44,22 @@ public class IntegerArray {
 	public Integer size() {
 		return this.elements.size();
 	}
+	
+	public int maxAscendingSequence(){
+		int max = 1;
+		int count = 1;
+		for(int i = 1; i< this.size(); i++) {
+			if(elements.get(i) - elements.get(i-1) == 1) {
+				count ++;
+			} 
+			else {
+				max = (count > max) ? count : max;	
+				count = 1;
+			}	
+		}
+		max = (count > max) ? count : max;
+		return max;
+	}
 
 	/**
 	 * You are given two sorted arrays, A and B, and A has a 
@@ -54,8 +70,8 @@ public class IntegerArray {
 	 * @param baseSize
 	 * @param toMergeSize
 	 */
-	public static void sortedMerge(int[] baseArray, int[] toMerge, int baseSize, int toMergeSize) {
-		int totalSize = baseSize + toMergeSize;
+	public static void sortedMerge(final int[] baseArray, final int[] toMerge, int baseSize, int toMergeSize) {
+		final int totalSize = baseSize + toMergeSize;
 		baseSize--;
 		toMergeSize--;
 		for (int i = totalSize-1; i >= 0; i--) {

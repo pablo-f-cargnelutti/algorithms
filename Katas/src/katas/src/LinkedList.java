@@ -90,6 +90,17 @@ public class LinkedList<T> {
 		}
 		this.head = previous;
 	}
+
+	public void printReverse() {
+		printReverse(this.head);		
+	}
+
+	private void printReverse(final ListNode<T> node) {
+		if(node ==  null)
+			return;
+		printReverse(node.next());
+		System.out.println(node.data());		
+	}
 	
 
 }
