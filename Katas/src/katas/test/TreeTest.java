@@ -72,6 +72,20 @@ public class TreeTest {
 		
 		assertFalse(tree.isBST());
 	}
+	
+	@Test 
+	public void testMinimumAncestor() {
+		final Tree<Integer> tree = createIntegerBinaryTree();
+		
+		assertEquals(Integer.valueOf(100), tree.minimumAncestor(Integer.valueOf(90), Integer.valueOf(400)));
+	}
+	
+	@Test 
+	public void testMinimumAncestorRoot() {
+		final Tree<Integer> tree = createIntegerRegularTree();
+		
+		assertEquals(Integer.valueOf(10), tree.minimumAncestor(Integer.valueOf(8), Integer.valueOf(100)));
+	}
 
 	private Tree<Integer> createIntegerRegularTree() {
 		final Tree<Integer> tree = new Tree<>();
@@ -98,6 +112,7 @@ public class TreeTest {
 
 		tree.root().right().setLeft(new TreeNode<Integer>(Integer.valueOf(90)));
 		tree.root().left().setRight(new TreeNode<Integer>(Integer.valueOf(9)));
+		tree.insert(Integer.valueOf(400));
 		return tree;
 	}
 

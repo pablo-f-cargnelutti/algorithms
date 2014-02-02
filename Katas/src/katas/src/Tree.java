@@ -82,4 +82,22 @@ public class Tree<T extends Comparable<T>> {
 		else 
 			return true;
 	}
+
+	public T minimumAncestor(final T value1, final T value2) {
+		T result = null;
+		TreeNode<T> current = this.root;
+		while (current != null) {			
+			if(current.isLessThan(value1) && current.isLessThan(value2)) {
+				current = current.right();				 	
+			}
+			else if(current.isGreatherThan(value1) && current.isGreatherThan(value2)) {
+				current = current.left();
+			}
+			else{
+				result = current.data();
+				break;
+			}
+		}
+		return result;
+	}
 }
