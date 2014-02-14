@@ -5,23 +5,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import katas.src.IntegerArray;
 import katas.src.Pair;
+import katas.src.Triplet;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class IntegerArrayTest {
+	
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
 
 	@Test
-	public void testGetTwoNumbersThanSum10() {
+	public void testGetTwoNumbersThanSumTen() {
 		final Integer[] initialValues = { 1, 54, 1, 5, 41, 5, 7, 5, 16, 7, 9 };
 		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
 		assertTrue(array.hasTwoNumbersThatSum(10));
 	}
 
 	@Test
-	public void testWhichIsThePairThatRepresentTheMinimalSum()
-			throws IllegalStateException {
+	public void testWhichIsThePairThatRepresentTheMinimalSum() {
 		final Integer[] initialValues = { 8, 10, 12, 1, 2 };
 		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
 		final Pair<Integer, Integer> pair = array.getPairWithMinimalSum();
@@ -30,12 +33,8 @@ public class IntegerArrayTest {
 		assertEquals(pair.right(), Integer.valueOf(2));
 	}
 
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
-
 	@Test
-	public void testWhichIsThePairThatRepresentTheMinimalSumWithNotEnoughData()
-			throws IllegalStateException {
+	public void testWhichIsThePairThatRepresentTheMinimalSumWithNotEnoughData() {
 		expectedException.expect(IllegalStateException.class);
 
 		final Integer[] initialValues = { 8 };
@@ -44,16 +43,62 @@ public class IntegerArrayTest {
 	}
 
 	@Test
-	public void testWhichIsThePairThatRepresentTheMinimalSumWithComplexData()
-			throws IllegalStateException {
+	public void testWhichIsThePairThatRepresentTheMinimalSumWithComplexData() {
 		final Integer[] initialValues = { 1, 54, 1, 5, 41, 5, 7, 5, 16, 7, 9 };
 		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
 		final Pair<Integer, Integer> pair = array.getPairWithMinimalSum();
 
 		assertEquals(pair.left(), Integer.valueOf(1));
 		assertEquals(pair.right(), Integer.valueOf(1));
-	}	
+	}
 	
+	@Test
+	public void testWhichIsTheTripletThatRepresentTheMinimalSum() {
+		final Integer[] initialValues = { 3,2,43,4,5,3,2,12};
+		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
+		final Triplet<Integer, Integer, Integer> triplet = array.getTripletWithMinimalSum();
+
+		assertEquals(triplet.first(), Integer.valueOf(5));
+		assertEquals(triplet.second(), Integer.valueOf(3));
+		assertEquals(triplet.third(), Integer.valueOf(2));		
+	}
+	
+	@Test
+	public void testWhichIsTheTripletThatRepresentTheMinimalSumWith3Elements() {
+		final Integer[] initialValues = { 3,2,43};
+		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
+		final Triplet<Integer, Integer, Integer> triplet = array.getTripletWithMinimalSum();
+
+		assertEquals(triplet.first(), Integer.valueOf(3));
+		assertEquals(triplet.second(), Integer.valueOf(2));
+		assertEquals(triplet.third(), Integer.valueOf(43));		
+	}
+	
+	@Test
+	public void testWhichIsTheTripletThatRepresentTheMinimalSumAtTheEnd() {
+		final Integer[] initialValues = { 3,2,43,5,4,123,55,3,2,1};
+		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
+		final Triplet<Integer, Integer, Integer> triplet = array.getTripletWithMinimalSum();
+
+		assertEquals(triplet.first(), Integer.valueOf(3));
+		assertEquals(triplet.second(), Integer.valueOf(2));
+		assertEquals(triplet.third(), Integer.valueOf(1));		
+	}
+	
+	@Test
+	public void testWhichIsTheTripletThatRepresentTheMinimalSumWithNotEnoughElements() {
+		expectedException.expect(IllegalStateException.class);
+		
+		final Integer[] initialValues = { 3,2};
+		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		
+		array.getTripletWithMinimalSum();
+	}
+		
 	@Test
 	public void testMergeTwoSortedArrays()
 	{

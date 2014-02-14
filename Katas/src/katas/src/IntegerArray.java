@@ -28,11 +28,8 @@ public class IntegerArray {
 		return false;
 	}
 
-	public Pair<Integer, Integer> getPairWithMinimalSum()
-			throws IllegalStateException {
-		if (this.size() < 2)
-			throw new IllegalStateException();
-
+	public Pair<Integer, Integer> getPairWithMinimalSum() {
+		validateSizeGreaterThan(1);
 		this.sort();
 		return Pair.of(elements.get(0), elements.get(1));
 	}
@@ -85,5 +82,29 @@ public class IntegerArray {
 			} else if(toMergeSize >= 0)
 				baseArray[i] = toMerge[toMergeSize];
 		}
+	}
+
+	public Triplet<Integer, Integer, Integer> getTripletWithMinimalSum() {
+		validateSizeGreaterThan(2);
+		Integer first = elements.get(0);
+		Integer second = elements.get(1);
+		Integer third = elements.get(2);
+		Integer minSum = first + second + third;
+		
+		for (int i = 1; i+2 < elements.size(); i++) {
+			final Integer sum = elements.get(i) + elements.get(i+1) + elements.get(i+2);
+			if( sum < minSum ) {
+				minSum = sum;
+				first = elements.get(i);
+				second = elements.get(i+1);
+				third = elements.get(i+2);
+			}
+		}
+		return Triplet.of(first, second, third);
+	}
+
+	private void validateSizeGreaterThan(final int expectedSize) {
+		if( this.size() <= expectedSize )
+			throw new IllegalStateException("Size should be greater that " + expectedSize);		
 	}
 }
