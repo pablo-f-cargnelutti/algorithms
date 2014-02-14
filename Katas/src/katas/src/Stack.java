@@ -14,8 +14,9 @@ public class Stack<T extends Comparable<T>> {
 	}
 
 	public void push(final T value) {
-		if(this.isEmpty()) 
-			lastMin = min = value;		
+		if(this.isEmpty()) {
+			lastMin = min = value;
+		}
 		else if(value.compareTo(min) < 0) {
 			lastMin = min;
 			min = value;
@@ -25,8 +26,7 @@ public class Stack<T extends Comparable<T>> {
 	}
 	
 	public T pop() {
-		if(this.isEmpty())
-			throw new IllegalStateException();
+		validateIsNotEmpty();
 		
 		final T pop = this.elements.pop();
 		
@@ -35,10 +35,14 @@ public class Stack<T extends Comparable<T>> {
 		
 		return pop;
 	}
+
+	private void validateIsNotEmpty() {
+		if(this.isEmpty())
+			throw new IllegalStateException();
+	}
 	
 	public T min() {		
-		if(this.isEmpty())
-			throw new IllegalStateException();		
+		validateIsNotEmpty();		
 		return min;
 	}
 	

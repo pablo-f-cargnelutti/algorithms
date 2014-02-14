@@ -40,8 +40,8 @@ public class Tree<T extends Comparable<T>> {
 			queue.offer(node);
 	}	
 
-	private void applyTo(final Queue<TreeNode<T>> queue, final TreeNodeVisitFunction<T> visit) {
-		for (final TreeNode<T> node : queue) {
+	private void applyTo(final Queue<TreeNode<T>> level, final TreeNodeVisitFunction<T> visit) {
+		for (final TreeNode<T> node : level) {
 			visit.to(node.data());
 		}
 		visit.endOfLevel();

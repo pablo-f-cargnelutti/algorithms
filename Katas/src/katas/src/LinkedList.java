@@ -101,6 +101,4 @@ public class LinkedList<T> {
 		printReverse(node.next());
 		System.out.println(node.data());		
 	}
-	
-
 }

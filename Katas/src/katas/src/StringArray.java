@@ -11,7 +11,7 @@ public class StringArray {
 		return new StringArray(strings);
 	} 
 	
-	private List<String> elements;
+	private final List<String> elements;
 
 	private StringArray(final String[] strings) {
 		this.elements = Arrays.asList(strings);
@@ -34,12 +34,18 @@ public class StringArray {
 			return areAnagrams(arg0, arg1) ? 0 : arg0.compareTo(arg1);
 		}
 
-		private boolean areAnagrams(String arg0, String arg1) {
-			for(Character character : arg0.toCharArray()) {
-				if( ! arg1.contains(character.toString()) )
-					return false;
+		private boolean areAnagrams(final String arg0, final String arg1) {
+			boolean result = false;
+			if(arg0.length() == arg1.length()) {
+				result = true;
+				for(final Character character : arg0.toCharArray()) {
+					if( ! arg1.contains(character.toString()) ) {
+						result = false;
+						break;
+					}
+				}				
 			}
-			return true;
+			return result;
 		}
 	}
 }
