@@ -55,12 +55,12 @@ public class IntegerArrayTest {
 	
 	@Test
 	public void testWhichIsTheTripletThatRepresentTheMinimalSum() {
-		final Integer[] initialValues = { 3,2,43,4,5,3,2,12};
+		final Integer[] initialValues = { 3,2,43,4,-5,3,2,12};
 		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
 		
 		final Triplet<Integer, Integer, Integer> triplet = array.getTripletWithMinimalSum();
 
-		assertEquals(triplet.first(), Integer.valueOf(5));
+		assertEquals(triplet.first(), Integer.valueOf(-5));
 		assertEquals(triplet.second(), Integer.valueOf(3));
 		assertEquals(triplet.third(), Integer.valueOf(2));		
 	}
