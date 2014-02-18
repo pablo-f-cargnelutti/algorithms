@@ -19,6 +19,10 @@ public class ListNode<T> {
 		return this;	
 	}
 	
+	public void remove(final ListNode<T> previousNode) {
+		previousNode.setNext(this.next());
+	}
+	
 	public void addLast(final ListNode<T> currentHead) {
 		ListNode<T> aux = currentHead; 
 		while ( aux.next != null) {			
@@ -39,6 +43,14 @@ public class ListNode<T> {
 		return this.next;
 	}
 
+	@Override
+	public boolean equals(final Object obj) {
+		if( obj instanceof ListNode ) {
+			return ListNode.class.cast(obj).data.equals(this.data);
+		}
+		return false;
+	}
+	
 	protected boolean hasNext() {
 		return next() != null;
 	}

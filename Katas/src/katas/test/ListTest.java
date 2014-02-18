@@ -128,8 +128,38 @@ public class ListTest {
 	}
 
 	@Test
-	public void testIsACyclicList() {
+	public void testRemoveDuplicatesAtTheEnd() {
+		final LinkedList<Integer> list = createSampleList();
+		list.addFirst(10); // Add a duplicate
 		
+		list.removeDuplicates();
+		
+		assertArrayEquals(new Integer[]{10, 610, 12340, 1546, 100}, list.asArray());
+	}
+	
+	@Test
+	public void testRemoveDuplicatesWithAllDuplicates() {
+		final LinkedList<Integer> list = new LinkedList<>();
+		list.addFirst(10); 
+		list.addFirst(10); 
+		list.addFirst(10); 
+		list.addFirst(10); 
+		list.addFirst(10); 
+		
+		list.removeDuplicates();
+		
+		assertArrayEquals(new Integer[]{10}, list.asArray());
+	}
+	
+	@Test
+	public void testRemoveDuplicatesInTheMiddle() {
+		final LinkedList<Integer> list = createSampleList();
+		list.addFirst(10); // Add a duplicate
+		list.addFirst(199); // Add a unique element
+		
+		list.removeDuplicates();
+		
+		assertArrayEquals(new Integer[]{199, 10, 610, 12340, 1546, 100}, list.asArray());
 	}
 	
 	

@@ -101,4 +101,27 @@ public class LinkedList<T> {
 		printReverse(node.next());
 		System.out.println(node.data());		
 	}
+
+	public void removeDuplicates() {
+		ListNode<T> current = head;		
+		while( current != null ) {
+			ListNode<T> runer = current.next();
+			ListNode<T> previous = current;
+			while( runer != null ) {
+				if( current.equals(runer) ) {
+					remove(runer, previous);
+				}
+				else {
+					previous = runer;
+				}
+				runer = runer.next();
+			}
+			current = current.next();
+		}		
+	}
+
+	private void remove(ListNode<T> runer, ListNode<T> previous) {
+		runer.remove(previous);	
+		this.size --;
+	}
 }
