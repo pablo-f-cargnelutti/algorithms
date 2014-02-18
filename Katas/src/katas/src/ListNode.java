@@ -4,12 +4,20 @@ package katas.src;
 public class ListNode<T> {
 	
 	private ListNode<T> next;
-	private final T data;
+	private T data;
 
+	public void setData(final T data) {
+		this.data = data;
+	}
+	
 	public ListNode(final T data) {
 		this.data = data;
 	}
 	
+	private ListNode() {
+		data = null;
+	}
+
 	public void setNext(final ListNode<T> next) {
 		this.next = next;
 	}
@@ -53,6 +61,10 @@ public class ListNode<T> {
 	
 	protected boolean hasNext() {
 		return next() != null;
+	}
+
+	public static <T> ListNode<T> getNullNode() {
+		return new ListNode<T>();
 	}
 
 }

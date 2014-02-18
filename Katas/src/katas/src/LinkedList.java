@@ -69,8 +69,12 @@ public class LinkedList<T> {
 		});
 	}
 	
-	private void transverse(final NodeAction<T> action) {
-		ListNode<T> aux = this.head;
+	private void transverse(final NodeAction<T> nodeAction) {
+		transverse(head, nodeAction);		
+	}
+
+	private void transverse(final ListNode<T> originNode, final NodeAction<T> action) {
+		ListNode<T> aux = originNode;
 		while(aux != null) {
 			action.apply(aux);
 			aux = aux.next();
@@ -120,8 +124,44 @@ public class LinkedList<T> {
 		}		
 	}
 
-	private void remove(ListNode<T> runer, ListNode<T> previous) {
+	private void remove(final ListNode<T> runer, final ListNode<T> previous) {
 		runer.remove(previous);	
+		this.size --;
+	}
+
+	public ListNode<T> getNodeAt(final int index) {
+		validateSizeGreaterThan(index);		
+		ListNode<T> current = head;
+		int indexCount = 0;
+		while ( current != null ) {
+			if( index == indexCount ) {
+				return current;
+			}			
+			indexCount ++;
+			current = current.next();
+		}
+		return ListNode.getNullNode(); // should never reach this point.
+	}
+
+	private void validateSizeGreaterThan(final int index) {
+		if( this.size < index ) {
+			throw new IllegalArgumentException();
+		}		
+	}
+
+	/**
+	 * This approach is assuming that you only have access to the node
+	 * to delete. It does no work if the node to remove is the last node.
+	 * @param toDelete
+	 */
+	public void remove(final ListNode<T> toDelete) {
+		if ( toDelete == null  || !toDelete.hasNext() ) {
+			throw new IllegalArgumentException();
+		}
+			
+		ListNode<T> next = toDelete.next();
+		toDelete.setData(next.data());
+		toDelete.setNext(next.next());
 		this.size --;
 	}
 }

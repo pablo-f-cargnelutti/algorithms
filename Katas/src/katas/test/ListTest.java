@@ -6,10 +6,15 @@ import katas.src.LinkedList;
 import katas.src.ListNode;
 import katas.src.NestedListNode;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class ListTest {
 
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
+	
 	@Test
 	public void testAddElementToList() {
 		final LinkedList<Integer> list = new LinkedList<>();		
@@ -160,6 +165,38 @@ public class ListTest {
 		list.removeDuplicates();
 		
 		assertArrayEquals(new Integer[]{199, 10, 610, 12340, 1546, 100}, list.asArray());
+	}
+	
+	@Test
+	public void testRemoveNode() {
+		final LinkedList<Integer> list = createSampleList();
+		
+		int index = 2;
+		ListNode<Integer> toDelete = list.getNodeAt(index);
+		list.remove(toDelete);
+		
+		assertArrayEquals(new Integer[]{610, 12340, 100, 10}, list.asArray());
+	}
+	
+	@Test
+	public void testRemoveNodeAtBeginning() {
+		final LinkedList<Integer> list = createSampleList();
+		
+		int index = 0;
+		ListNode<Integer> toDelete = list.getNodeAt(index);
+		list.remove(toDelete);
+		
+		assertArrayEquals(new Integer[]{12340, 1546 ,100, 10}, list.asArray());
+	}
+	
+	@Test
+	public void testRemoveNodeAtTheEnd() {
+		expectedException.expect(IllegalArgumentException.class);
+		final LinkedList<Integer> list = createSampleList();
+		
+		int index = 4;
+		ListNode<Integer> toDelete = list.getNodeAt(index);
+		list.remove(toDelete);
 	}
 	
 	
