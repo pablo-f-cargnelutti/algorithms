@@ -57,6 +57,31 @@ public class IntegerArray {
 		max = (count > max) ? count : max;
 		return max;
 	}
+	
+	public Triplet<Integer, Integer, Integer> getTripletWithMinimalSum() {
+		validateSizeGreaterThan(2);
+		Integer first = elements.get(0);
+		Integer second = elements.get(1);
+		Integer third = elements.get(2);
+		Integer minSum = first + second + third;
+		
+		for (int i = 1; i+2 < this.size(); i++) {
+			final Integer sum = elements.get(i) + elements.get(i+1) + elements.get(i+2);
+			if( sum < minSum ) {
+				minSum = sum;
+				first = elements.get(i);
+				second = elements.get(i+1);
+				third = elements.get(i+2);
+			}
+		}
+		return Triplet.of(first, second, third);
+	}
+
+	private void validateSizeGreaterThan(final int expectedSize) {
+		if( this.size() <= expectedSize )
+			throw new IllegalStateException("Size should be greater that " + expectedSize);		
+	}
+	
 
 	/**
 	 * You are given two sorted arrays, A and B, and A has a 
@@ -82,29 +107,5 @@ public class IntegerArray {
 			} else if(toMergeSize >= 0)
 				baseArray[i] = toMerge[toMergeSize];
 		}
-	}
-
-	public Triplet<Integer, Integer, Integer> getTripletWithMinimalSum() {
-		validateSizeGreaterThan(2);
-		Integer first = elements.get(0);
-		Integer second = elements.get(1);
-		Integer third = elements.get(2);
-		Integer minSum = first + second + third;
-		
-		for (int i = 1; i+2 < elements.size(); i++) {
-			final Integer sum = elements.get(i) + elements.get(i+1) + elements.get(i+2);
-			if( sum < minSum ) {
-				minSum = sum;
-				first = elements.get(i);
-				second = elements.get(i+1);
-				third = elements.get(i+2);
-			}
-		}
-		return Triplet.of(first, second, third);
-	}
-
-	private void validateSizeGreaterThan(final int expectedSize) {
-		if( this.size() <= expectedSize )
-			throw new IllegalStateException("Size should be greater that " + expectedSize);		
 	}
 }
