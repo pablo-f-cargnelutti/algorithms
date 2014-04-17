@@ -170,4 +170,36 @@ public class IntegerArrayTest {
 		
 		assertEquals(4, array.maxAscendingSequence());
 	}
+
+    @Test
+    public void testFindTheNumberThatRepeatTheMost(){
+        final Integer[] initialValues = { 1, 2, 1, 1};
+        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+
+        assertEquals(1, array.findTheMostOccurrences());
+    }
+
+    @Test
+    public void testFindTheNumberThatRepeatTheMostWithMoreNumbers(){
+        final Integer[] initialValues = { 1, 2, 1, 1,6,7,32,4,2,2,2,2,4};
+        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+
+        assertEquals(2, array.findTheMostOccurrences());
+    }
+
+    @Test
+    public void testFindTheNumberThatRepeatTheMostWithOneOcurrence(){
+        final Integer[] initialValues = { 2};
+        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+
+        assertEquals(2, array.findTheMostOccurrences());
+    }
+
+    @Test
+    public void testFindTheNumberThatRepeatTheMostWithTwoDifferentNumbersWithOneOccurrenceEach(){
+        final Integer[] initialValues = {1,2};
+        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+
+        assertEquals(1, array.findTheMostOccurrences());
+    }
 }
