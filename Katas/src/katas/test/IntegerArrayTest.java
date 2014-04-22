@@ -3,9 +3,9 @@ package katas.test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import katas.src.IntegerArray;
-import katas.src.Pair;
-import katas.src.Triplet;
+
+import katas.src.*;
+import katas.src.IntegerArray_old;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,10 +23,17 @@ public class IntegerArrayTest {
 		assertTrue(array.hasTwoNumbersThatSum(10));
 	}
 
+    @Test
+    public void testGetTwoNumbersThanSumEight() {
+        final Integer[] initialValues = { 4,5,3 };
+        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+        assertTrue(array.hasTwoNumbersThatSum(8));
+    }
+
 	@Test
 	public void testWhichIsThePairThatRepresentTheMinimalSum() {
 		final Integer[] initialValues = { 8, 10, 12, 1, 2 };
-		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		final IntegerArray_old array = IntegerArray_old.integerArrayFrom(initialValues);
 		final Pair<Integer, Integer> pair = array.getPairWithMinimalSum();
 
 		assertEquals(pair.left(), Integer.valueOf(1));
@@ -61,8 +68,8 @@ public class IntegerArrayTest {
 		final Triplet<Integer, Integer, Integer> triplet = array.getTripletWithMinimalSum();
 
 		assertEquals(triplet.first(), Integer.valueOf(-5));
-		assertEquals(triplet.second(), Integer.valueOf(3));
-		assertEquals(triplet.third(), Integer.valueOf(2));		
+		assertEquals(triplet.second(), Integer.valueOf(2));
+		assertEquals(triplet.third(), Integer.valueOf(2));
 	}
 	
 	@Test
@@ -72,8 +79,8 @@ public class IntegerArrayTest {
 		
 		final Triplet<Integer, Integer, Integer> triplet = array.getTripletWithMinimalSum();
 
-		assertEquals(triplet.first(), Integer.valueOf(3));
-		assertEquals(triplet.second(), Integer.valueOf(2));
+		assertEquals(triplet.first(), Integer.valueOf(2));
+		assertEquals(triplet.second(), Integer.valueOf(3));
 		assertEquals(triplet.third(), Integer.valueOf(43));		
 	}
 	
@@ -84,9 +91,9 @@ public class IntegerArrayTest {
 		
 		final Triplet<Integer, Integer, Integer> triplet = array.getTripletWithMinimalSum();
 
-		assertEquals(triplet.first(), Integer.valueOf(3));
+		assertEquals(triplet.first(), Integer.valueOf(1));
 		assertEquals(triplet.second(), Integer.valueOf(2));
-		assertEquals(triplet.third(), Integer.valueOf(1));		
+		assertEquals(triplet.third(), Integer.valueOf(2));
 	}
 	
 	@Test
@@ -110,13 +117,13 @@ public class IntegerArrayTest {
 		
 		final int[] arrayToMerge = new int[] { 2,3};
 		
-		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 2);		
+		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 2);
 		
 		assertArrayEquals(new int[]{1,2,3,7,30,50,0,0,0,0}, baseArray);
 	}
 	
 	@Test
-	public void testMergeTwoSortedArraysToMergeGreatherThanBaseArray()
+	public void testMergeTwoSortedArraysToMergeGreaterThanBaseArray()
 	{
 		final int[] baseArray = new int[11];
 		baseArray[0] = 1;
@@ -126,13 +133,13 @@ public class IntegerArrayTest {
 		
 		final int[] arrayToMerge = new int[] { 2, 3, 100, 690, 800, 900, 1000};
 		
-		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 7);		
+		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 7);
 		
 		assertArrayEquals(new int[]{1,2,3,7,30,50,100,690,800,900, 1000}, baseArray);
 	}
 	
 	@Test
-	public void testMergeTwoSortedArraysWhithrRepetitions()
+	public void testMergeTwoSortedArraysWithRepetitions()
 	{
 		final int[] baseArray = new int[10];
 		baseArray[0] = 1;
@@ -142,7 +149,7 @@ public class IntegerArrayTest {
 		
 		final int[] arrayToMerge = new int[] { 7,30};
 		
-		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 2);		
+		IntegerArray.sortedMerge(baseArray, arrayToMerge, 4, 2);
 		
 		assertArrayEquals(new int[]{1,7,7,30,30,50,0,0,0,0}, baseArray);
 	}
@@ -157,16 +164,16 @@ public class IntegerArrayTest {
 	
 	@Test
 	public void testMaxAscendingSequenceAtTheEnd() {
-		final Integer[] initialValues = { 1, 54, 1, 5, 41,42, 5, 7, 5, 16, 7, 8, 9 };
+		final Integer[] initialValues = { 1, 54, 1, 5, 41,42, 5, 7, 5, 16, 7, 8, 9, 10,12 };
 		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
 		
-		assertEquals(3, array.maxAscendingSequence());
+		assertEquals(10, array.maxAscendingSequence());
 	}
 	
 	@Test
 	public void testMaxAscendingSequenceAtTheBeggining() {
 		final Integer[] initialValues = { 1, 2,3,4, 41,42, 5, 7, 5, 16, 7, 8, 9 };
-		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		final IntegerArray_old array = IntegerArray_old.integerArrayFrom(initialValues);
 		
 		assertEquals(4, array.maxAscendingSequence());
 	}
@@ -174,7 +181,7 @@ public class IntegerArrayTest {
     @Test
     public void testFindTheNumberThatRepeatTheMost(){
         final Integer[] initialValues = { 1, 2, 1, 1};
-        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+        final IntegerArray_old array = IntegerArray_old.integerArrayFrom(initialValues);
 
         assertEquals(1, array.findTheMostOccurrences());
     }
@@ -182,15 +189,15 @@ public class IntegerArrayTest {
     @Test
     public void testFindTheNumberThatRepeatTheMostWithMoreNumbers(){
         final Integer[] initialValues = { 1, 2, 1, 1,6,7,32,4,2,2,2,2,4};
-        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+        final IntegerArray_old array = IntegerArray_old.integerArrayFrom(initialValues);
 
         assertEquals(2, array.findTheMostOccurrences());
     }
 
     @Test
-    public void testFindTheNumberThatRepeatTheMostWithOneOcurrence(){
+    public void testFindTheNumberThatRepeatTheMostWithOneOccurrence(){
         final Integer[] initialValues = { 2};
-        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+        final IntegerArray_old array = IntegerArray_old.integerArrayFrom(initialValues);
 
         assertEquals(2, array.findTheMostOccurrences());
     }
@@ -198,7 +205,7 @@ public class IntegerArrayTest {
     @Test
     public void testFindTheNumberThatRepeatTheMostWithTwoDifferentNumbersWithOneOccurrenceEach(){
         final Integer[] initialValues = {1,2};
-        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+        final IntegerArray_old array = IntegerArray_old.integerArrayFrom(initialValues);
 
         assertEquals(1, array.findTheMostOccurrences());
     }

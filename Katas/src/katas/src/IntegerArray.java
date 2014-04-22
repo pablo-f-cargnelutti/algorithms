@@ -14,114 +14,91 @@ public class IntegerArray {
         this.elements = Arrays.asList(initialValues);
     }
 
-    public boolean hasTwoNumbersThatSum(final int aNumber) {
-        final Set<Integer> uniqueElements = new HashSet<>(elements);
+    public boolean hasTwoNumbersThatSum(int sum) {
+        Map<Integer, Integer> map = new HashMap<>();
+        fillMap(map);
 
-        for (final Integer number : elements) {
-            if (uniqueElements.contains(aNumber - number))
+        for (Integer current : elements) {
+            int diff = sum - current;
+            if(diff == current && map.get(current) == 1)
+                continue;
+            if(map.containsKey(diff))
                 return true;
         }
         return false;
     }
 
+    private void fillMap(Map<Integer, Integer> map) {
+        for (Integer key : elements) {
+            int count = map.containsKey(key) ? map.get(key) : 0;
+            count ++;
+            map.put(key, count);
+        }
+    }
+
     public Pair<Integer, Integer> getPairWithMinimalSum() {
-        validateSizeGreaterThan(1);
-        this.sort();
+        validateSizeIsAtLeast(2);
+        Collections.sort(this.elements);
         return Pair.of(elements.get(0), elements.get(1));
     }
 
-    public void sort() {
-        Collections.sort(elements);
+    private void validateSizeIsAtLeast(int expectedSize) {
+        if(size() < expectedSize)
+            throw new IllegalStateException("Size too short.");
     }
 
-    public Integer size() {
+    private int size() {
         return this.elements.size();
     }
 
-    public int maxAscendingSequence() {
-        int max = 1;
-        int count = 1;
-        for (int i = 1; i < this.size(); i++) {
-            if (elements.get(i) - elements.get(i - 1) == 1) {
-                count++;
-            } else {
-                max = (count > max) ? count : max;
-                count = 1;
-            }
-        }
-        max = (count > max) ? count : max;
-        return max;
-    }
-
     public Triplet<Integer, Integer, Integer> getTripletWithMinimalSum() {
-        validateSizeGreaterThan(2);
-        Integer first = elements.get(0);
-        Integer second = elements.get(1);
-        Integer third = elements.get(2);
-        Integer minSum = first + second + third;
-
-        for (int i = 1; i + 2 < this.size(); i++) {
-            final Integer sum = elements.get(i) + elements.get(i + 1) + elements.get(i + 2);
-            if (sum < minSum) {
-                minSum = sum;
-                first = elements.get(i);
-                second = elements.get(i + 1);
-                third = elements.get(i + 2);
-            }
-        }
-        return Triplet.of(first, second, third);
+        validateSizeIsAtLeast(3);
+        Collections.sort(this.elements);
+        return Triplet.of(elements.get(0), elements.get(1), elements.get(2));
     }
 
-    private void validateSizeGreaterThan(final int expectedSize) {
-        if (this.size() <= expectedSize)
-            throw new IllegalStateException("Size should be greater that " + expectedSize);
-    }
-
-
-    /**
-     * You are given two sorted arrays, A and B, and A has a
-     * large enough buffer at the end to hold B. Write a method
-     * to merge B into A in sorted order.
-     *
-     * @param baseArray
-     * @param toMerge
-     * @param baseSize
-     * @param toMergeSize
-     */
-    public static void sortedMerge(final int[] baseArray, final int[] toMerge, int baseSize, int toMergeSize) {
-        final int totalSize = baseSize + toMergeSize;
-        baseSize--;
-        toMergeSize--;
-        for (int i = totalSize - 1; i >= 0; i--) {
-            if (baseSize >= 0 && toMergeSize >= 0) {
-                if (baseArray[baseSize] >= toMerge[toMergeSize]) {
+    public static void sortedMerge(int[] baseArray, int[] toMergeArray, int baseSize, int toMergeSize) {
+        int totalSize = baseSize + toMergeSize - 1;
+        baseSize --;
+        toMergeSize --;
+        for(int i = totalSize; i>=0; i--) {
+            if(baseSize >= 0 && toMergeSize >= 0) {
+                if (baseArray[baseSize] > toMergeArray[toMergeSize]) {
                     baseArray[i] = baseArray[baseSize--];
-                } else if (baseArray[baseSize] < toMerge[toMergeSize]) {
-                    baseArray[i] = toMerge[toMergeSize--];
+                } else {
+                    baseArray[i] = toMergeArray[toMergeSize--];
                 }
-            } else if (toMergeSize >= 0)
-                baseArray[i] = toMerge[toMergeSize];
+            }
+            else if(toMergeSize >= 0)
+                baseArray[i] = toMergeArray[toMergeSize--];
         }
     }
 
-    public int findTheMostOccurrences() {
-        if(size() == 1)
-            return elements.get(0);
-        Collections.sort(elements);
-        int maxOccurrences = 0;
-        int maxOccurrencesNumber = 0;
+    public int maxAscendingSequence() {
+        int maxSeqCount = 0;
+        int seqCount = 0;
+        int maxSeqIndex = -1;
+        int seqIndex = 0;
         int previous = elements.get(0);
-        int count = 0;
-        for (Integer number : elements) {
-            if (number == previous)
-                count++;
-            else if (count > maxOccurrences) {
-                maxOccurrences = count;
-                maxOccurrencesNumber = previous;
-                count = 1;
-                previous = number;
+
+        for (int i = 1; i < size(); i++) {
+            int current = elements.get(i);
+            if(previous < current) {
+                seqCount ++;
             }
+            else {
+                if(seqCount > maxSeqCount) {
+                    maxSeqCount = seqCount;
+                    maxSeqIndex = seqIndex;
+                }
+                seqCount = 0;
+                seqIndex = i;
+            }
+            previous = current;
         }
-        return maxOccurrencesNumber;
+        if(seqCount > maxSeqCount) {
+            maxSeqIndex = seqIndex;
+        }
+        return maxSeqIndex;
     }
 }
