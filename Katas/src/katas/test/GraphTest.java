@@ -30,7 +30,7 @@ public class GraphTest {
                 else if(page.equalsIgnoreCase("page3"))
                     return new String[]{"page93", "page35"};
                 else if(page.equalsIgnoreCase("page13"))
-                    return new String[]{"page93", "page35"};
+                    return new String[]{"page93", "page39"};
                 return new String[]{};
             }
         };
@@ -48,6 +48,18 @@ public class GraphTest {
     public void distanceTest0() {
         int distance = pages.getDistanceFrom("page1", "page1");
         assertEquals(0, distance);
+    }
+
+    @Test
+    public void distanceTest2() {
+        int distance = pages.getDistanceFrom("page1", "page35");
+        assertEquals(2, distance);
+    }
+
+    @Test
+    public void distanceTest3() {
+        int distance = pages.getDistanceFrom("page1", "page39");
+        assertEquals(3, distance);
     }
 
     @Test
