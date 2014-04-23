@@ -1,8 +1,7 @@
 package katas.src;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.LinkedList;
 
 public class WebPages {
     private LinkService linkService;
@@ -12,28 +11,30 @@ public class WebPages {
     }
 
     public int getDistanceFrom(String aPage, String otherPage) {
-        if(aPage.equalsIgnoreCase(otherPage))
+        if(aPage.equalsIgnoreCase(otherPage)) {
             return 0;
-        List<String> links = Arrays.asList(linkService.getLinksFor(aPage));
-        if (links.contains(otherPage))
-            return 1;
-        int distance = 1;
-        do {
-            List<String> level = new java.util.LinkedList<>();
-            for (String link : links) {
-                List<String> innerLinks = Arrays.asList(linkService.getLinksFor(link));
-                if (innerLinks.contains(otherPage)) {
-                    return distance+1;
+        }
+
+        List<String> links = new LinkedList<>();
+        List<String> level = new LinkedList<>();
+        level.add(aPage);
+        int distance = 0;
+        while ( !level.isEmpty() ) {
+            distance = level.isEmpty() ? distance : distance + 1;
+            for (String page : level) {
+                links.addAll(Arrays.asList(linkService.getLinksFor(page)));
+                if (links.contains(otherPage)) {
+                    return distance;
                 }
-                level.addAll(innerLinks);
             }
-            distance = links.isEmpty() ? distance : distance + 1;
-            links = level;
-        } while (!links.isEmpty());
+
+            level.clear();
+            level.addAll(links);
+            links.clear();
+        }
 
         throw new IllegalArgumentException("Page not found");
     }
-
 
     public interface LinkService {
         String[] getLinksFor(final String page);

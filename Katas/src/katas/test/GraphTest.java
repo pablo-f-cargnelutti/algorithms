@@ -45,6 +45,12 @@ public class GraphTest {
     }
 
     @Test
+    public void distanceTest1_2() {
+        int distance = pages.getDistanceFrom("page1", "page12");
+        assertEquals(1, distance);
+    }
+
+    @Test
     public void distanceTest0() {
         int distance = pages.getDistanceFrom("page1", "page1");
         assertEquals(0, distance);
