@@ -15,14 +15,14 @@ public class IntegerArray {
     }
 
     public boolean hasTwoNumbersThatSum(int sum) {
-        Map<Integer, Integer> map = new HashMap<>();
-        fillMap(map);
+        Map<Integer, Integer> numbers = new HashMap<>();
+        fillMap(numbers);
 
-        for (Integer current : elements) {
-            int diff = sum - current;
-            if(diff == current && map.get(current) == 1)
-                continue;
-            if(map.containsKey(diff))
+        for (Integer aNumber : numbers.keySet()) {
+            int diff = sum - aNumber;
+            boolean sumIsComposedByRepeatedNumbers = diff == aNumber && numbers.get(aNumber) > 1;
+
+            if(sumIsComposedByRepeatedNumbers || numbers.containsKey(diff))
                 return true;
         }
         return false;

@@ -30,6 +30,20 @@ public class IntegerArrayTest {
         assertTrue(array.hasTwoNumbersThatSum(8));
     }
 
+    @Test
+    public void testGetTwoNumbersThanSumEightWithRepeatedNumbers() {
+        final Integer[] initialValues = { 4,5,4 };
+        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+        assertTrue(array.hasTwoNumbersThatSum(8));
+    }
+
+    @Test
+    public void testGetTwoNumbersThanSumMinusEight() {
+        final Integer[] initialValues = { -4,5,12,-3,-41,-5 };
+        final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+        assertTrue(array.hasTwoNumbersThatSum(-8));
+    }
+
 	@Test
 	public void testWhichIsThePairThatRepresentTheMinimalSum() {
 		final Integer[] initialValues = { 8, 10, 12, 1, 2 };
