@@ -28,4 +28,18 @@ public class StringArrayTest {
 		assertArrayEquals(new String[]{"Julio", "Lujoi", "cacho",  "ochac"}, stringArray.asArray());
 	}
 
+    @Test
+     public void testSortArrayBasedOnAnagramsThreeGroupsOfAnagrams() {
+        StringArray stringArray = StringArray.newFrom(new String[]{"Lujoi", "cacho", "Julio", "ochac", "Coaoa", "uJoil"});
+        stringArray.sortBasedOnAnagrams();
+        assertArrayEquals(new String[]{"Coaoa", "Julio", "Lujoi", "uJoil", "cacho",  "ochac"}, stringArray.asArray());
+    }
+
+    @Test
+    public void testSortArrayBasedOnAnagramsThreeGroupsOfAnagrams2() {
+        StringArray stringArray = StringArray.newFrom(new String[]{"Lujoi", "cacho", "Julio", "ochac", "Coaoa", "uJoil"});
+        stringArray.sortBasedOnAnagrams();
+
+    }
+
 }

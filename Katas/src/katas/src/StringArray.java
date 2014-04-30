@@ -1,9 +1,7 @@
 package katas.src;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.LinkedList;
 
 public class StringArray {
 
@@ -18,8 +16,18 @@ public class StringArray {
 	}
 
 	public void sortBasedOnAnagrams() {
-		final Comparator<String> anagramComparator = new AnagramComparator();
-		Collections.sort(this.elements, anagramComparator);		
+		Map<String, List<String>> multiValueMap = new HashMap<>();
+        for(String element : elements) {
+            char[] charArray = element.toCharArray();
+            Arrays.sort(charArray);
+            if (multiValueMap.containsKey(element) || multiValueMap.containsKey(charArray.toString()) ){
+                multiValueMap.get(element).add(element);
+            }
+            else{
+                multiValueMap.put(element, new LinkedList<>());
+            }
+        }
+        System.out.print(multiValueMap);
 	}
 
 	public String[] asArray() {		
