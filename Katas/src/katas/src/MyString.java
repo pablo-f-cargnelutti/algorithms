@@ -1,9 +1,6 @@
 package katas.src;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class MyString {
 
@@ -27,6 +24,36 @@ public class MyString {
 		}
 
 	}
+
+    public boolean areAnagramas(String aString, String anotherString) {
+        if(aString.length() != anotherString.length())
+            return false;
+
+        Map<Character, Integer> map = new HashMap<>();
+        for(Character aChar : aString.toCharArray())
+        {
+            int occurrences = map.containsKey(aChar) ? map.get(aChar) + 1 : 1;
+            map.put(aChar, occurrences);
+        }
+
+        // map: A (2), B(1)
+
+        for(Character aChar : anotherString.toCharArray()) {
+            if(map.containsKey(aChar)) {
+                int value = map.get(aChar);
+                if(value == 0)
+                    return false;
+                else {
+                    value--;
+                    map.put(aChar, value);
+                }
+            }
+            else
+                return false;
+        }
+
+        return true;
+    } // end of method
 
 	private String content;
 

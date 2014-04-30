@@ -1,6 +1,7 @@
 package katas.src;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 
 public class IntegerArray_old {
 
@@ -14,14 +15,17 @@ public class IntegerArray_old {
         this.elements = Arrays.asList(initialValues);
     }
 
-    public boolean hasTwoNumbersThatSum(final int aNumber) {
+    public boolean hasTwoNumbersThatSum(Integer aNumber) {
         final Set<Integer> uniqueElements = new HashSet<>(elements);
+        elements.stream().mapToInt(Integer::intValue).max();
+        return elements.stream().anyMatch(p->uniqueElements.contains(aNumber-p));
 
-        for (final Integer number : elements) {
-            if (uniqueElements.contains(aNumber - number))
-                return true;
-        }
-        return false;
+
+//        for (final Integer number : elements) {
+//            if (uniqueElements.contains(aNumber - number))
+//                return true;
+//        }
+//        return false;
     }
 
     public Pair<Integer, Integer> getPairWithMinimalSum() {

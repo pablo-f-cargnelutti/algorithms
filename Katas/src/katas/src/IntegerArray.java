@@ -20,7 +20,7 @@ public class IntegerArray {
 
         for (Integer aNumber : numbers.keySet()) {
             int diff = sum - aNumber;
-            boolean sumIsComposedByRepeatedNumbers = diff == aNumber && numbers.get(aNumber) > 1;
+            boolean sumIsComposedByRepeatedNumbers = (diff == aNumber) && numbers.get(aNumber) > 1;
 
             if(sumIsComposedByRepeatedNumbers || numbers.containsKey(diff))
                 return true;

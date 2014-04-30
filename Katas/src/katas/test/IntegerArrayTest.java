@@ -19,7 +19,7 @@ public class IntegerArrayTest {
 	@Test
 	public void testGetTwoNumbersThanSumTen() {
 		final Integer[] initialValues = { 1, 54, 1, 5, 41, 5, 7, 5, 16, 7, 9 };
-		final IntegerArray array = IntegerArray.integerArrayFrom(initialValues);
+		final IntegerArray_old array = IntegerArray_old.integerArrayFrom(initialValues);
 		assertTrue(array.hasTwoNumbersThatSum(10));
 	}
 

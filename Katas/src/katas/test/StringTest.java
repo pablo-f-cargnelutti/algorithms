@@ -92,6 +92,22 @@ public class StringTest {
 		MyString aString = new MyString("anita");
 		assertFalse(aString.isAnagramOf("tanita"));
 	}
-	
-	
+
+    @Test
+    public void testAreAnagrams() {
+        MyString aString = new MyString("");
+        assertTrue(aString.areAnagramas("anita", "atina"));
+    }
+
+    @Test
+    public void testAreAnagrams2() {
+        MyString aString = new MyString("");
+        assertFalse(aString.areAnagramas("ABB", "AAB"));
+    }
+
+    @Test
+    public void testAreAnagrams3() {
+        MyString aString = new MyString("");
+        assertTrue(aString.areAnagramas("ABBA", "AABB"));
+    }
 }

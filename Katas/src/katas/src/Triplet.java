@@ -27,5 +27,4 @@ public class Triplet<S, T, U> {
 	public static <S, T, U > Triplet<S, T, U> of(final S first, final T second, final U third) {
 		return new Triplet<S, T, U>(first, second, third);
 	}
-
 }
